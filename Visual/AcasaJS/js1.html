@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JS</title>
+    <script>
+        
+        //numar dintr-un interval
+        function randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min) + min)
+        }
+        console.log(randomNumber(100, 1000));
+
+        console.warn("......................");
+        //divizibilitate
+        var n = Math.floor(Math.random() * 1000);
+        if (n % 3 == 0) {
+            console.log(n, "este divizibil cu 3");
+        } else {
+            console.log(n, "nu este divizibil cu 3");
+        }
+        if (n % 5 == 0) {
+            console.log(n, "este divizibil cu 5");
+        } else {
+            console.log(n, "nu este divizibil cu 5");
+        }
+        if (n % 3 == 0 && n % 5 == 0) {
+            console.log(n, "este divizibil cu 15");
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
