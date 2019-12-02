@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PensuleCanvas</title>
+    <style>
+        button {
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-bottom: 5px solid black;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        var canvas;
+        var ctx;
+        var draw = false;
+        var button;
+
+        function start() {
+            canvas = document.getElementsByTagName("canvas")[0];
+            ctx = canvas.getContext("2d");
+            ctx.fillStyle = "black";
+            canvas.addEventListener("mousemove", canvasMouseMove);
+            canvas.addEventListener("mousedown", canvasMouseDown);
+            canvas.addEventListener("mouseup", canvasMouseUp);
+
+            for (var i = 0; i < 3; i++) {
+                button = document.createElement("button");
+                document.body.appendChild(button);
+            }
+
+        }
+
+        function canvasMouseMove(e) {
+            if (draw) {
+                ctx.fillRect(e.clientX, e.clientY, 1, 1);
+            }
+        }
+
+        function canvasMouseDown() {
+            draw = true;
+        }
+
+        function canvasMouseUp() {
+            draw = false;
+        }
+    </script>
+</head>
+
+<body>
+    <canvas width="500" height="500"></canvas>
+</body>
+
+</html>
