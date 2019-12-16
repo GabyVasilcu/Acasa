@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MutarePatrat</title>
+    <style>
+        .teren {
+            display: inline-block;
+            position: absolute;
+            width: 500px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .square {
+            display: inline-block;
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: blue;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        var container;
+        var square;
+        var dataMatrix = [];
+        var domMatrix = [];
+
+        function start() {
+            container = document.createElement("div");
+            container.className = "teren";
+            square = document.createElement("div");
+            square.className = "square";
+            container.appendChild(square);
+            document.body.appendChild(container);
+            // document.addEventListener("keydown", moveSquare);
+        }
+
+        function moveSquare(e) {
+            var key = e.keyCode;
+            switch (key) {
+                case "ArrowLeft":
+                    moveLeft();
+                    break;
+                case "ArrowUp":
+                    moveUp();
+                    break;
+                case "ArrowRight":
+                    moveRight();
+                    break;
+                case "ArrowDown":
+                    moveDown();
+                    break; 
+            }
+        }
+
+        function moveLeft() {
+            square.style.left = parseInt(square.style.left) - 5 + "px";
+        }
+
+        function moveUp() {
+            square.style.top = parseInt(square.style.top) - 5 + "px";
+        }
+
+        function moveRight() {
+            square.style.left = parseInt(square.style.left) + 5 + "px";
+        }
+
+        function moveDown() {
+            square.style.top = parseInt(square.style.top) + 5 + "px";
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
