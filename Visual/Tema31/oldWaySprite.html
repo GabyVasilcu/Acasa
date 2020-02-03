@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+    <style>
+        .frame1 {
+            background-image: url("sprite.png");
+            background-position: -20px -10px;
+        }
+
+        .frame2 {
+            background-image: url("sprite.png");
+            background-position: -45px -10px;
+        }
+
+        .frame3 {
+            background-image: url("sprite.png");
+            background-position: -72px -10px;
+        }
+
+        .frame4 {
+            background-image: url("sprite.png");
+            background-position: -101px -10px;
+        }
+
+        .frame5 {
+            background-image: url("sprite.png");
+            background-position: -124px -10px;
+        }
+
+        .frame6 {
+            background-image: url("sprite.png");
+            background-position: -153px -10px;
+        }
+
+        .frame7 {
+            background-image: url("sprite.png");
+            background-position: -185px -10px;
+        }
+
+        .frame8 {
+            background-image: url("sprite.png");
+            background-position: -217px -10px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        var sp;
+        var animatedSprite;
+        var clickableSprite;
+
+        function start() {
+            class Sprite {
+                constructor(options) {
+                    this._x = options.x;
+                    this._y = options.y;
+                    this._width = options.width;
+                    this._height = options.height;
+                    this._class = options.class;
+                    this._element = document.createElement("div");
+                    this.initialize();
+                }
+
+                initialize() {
+                    this.element.style.position = "absolute";
+                    this.element.style.left = `${this._x}px`;
+                    this.element.style.top = `${this._y}px`;
+                    this.element.style.width = `${this._width}px`;
+                    this.element.style.height = `${this._height}px`;
+                    this.element.className = this._class;
+                }
+
+                get element() {
+                    return this._element;
+                }
+
+                get x() {
+                    return this._x;
+                }
+
+                set x(value) {
+                    this._x = value;
+                    this.element.style.left = `${this._x}px`;
+                }
+
+                get y() {
+                    return this._y;
+                }
+
+                set y(value) {
+                    this._y = value;
+                    this.element.style.top = `${this._y}px`;
+                }
+
+                set class(value) {
+                    this._class = value;
+                    this.element.className = this._class;
+                }
+
+                get class() {
+                    return this._class;
+                }
+            }
+            sp = new Sprite({
+                x: 0,
+                y: 0,
+                width: 25,
+                height: 35,
+                class: "frame1"
+            });
+
+            AnimatedSprite.prototype = Object.create(Sprite.prototype);
+
+            animatedSprite = new AnimatedSprite({
+                x: 0,
+                y: 0,
+                width: 25,
+                height: 35,
+                classes: ["frame1",
+                    "frame2",
+                    "frame3",
+                    "frame4",
+                    "frame5",
+                    "frame6",
+                    "frame7",
+                    "frame8"
+                ]
+            });
+
+            function AnimatedSprite() {
+                Sprite.call(this, options);
+
+                constructor(options) {
+                    options.class = options.classes[0];
+                    this._classes = options.classes;
+                    this._index = 0;
+                    this.startAnimation();
+                }
+
+                startAnimation() {
+                    setInterval(this.nextFrame.bind(this), 100);
+                }
+
+                nextFrame() {
+                    this._index++;
+                    if (this._index >= this._classes.length) {
+                        this._index = 0;
+                    }
+
+                    this.class = this._classes[this._index];
+                }
+            }
+
+            ClickableSprite.prototype = Object.create(Sprite.prototype);
+
+            clickableSprite = new ClickableSprite({
+                x: 0,
+                y: 0,
+                width: 25,
+                height: 35,
+                class: "frame1",
+                clickCallback: spriteClick.bind(this)
+            });
+
+
+            function ClickableSprite() {
+                Sprite.call(this, options);
+
+                constructor(options) {
+                    this.clickCallback = options.clickCallback;
+                    this.init();
+                }
+
+                init() {
+                    console.log("init din animated sparitel")
+                    this._element.addEventListener("click", this.click.bind(this));
+                }
+
+                click(e) {
+                    console.log("click");
+                    this.clickCallback(e);
+                }
+            }
+
+
+
+
+
+            document.body.appendChild(sp.element);
+            document.body.appendChild(animatedSprite.element);
+            document.body.appendChild(clickableSprite.element);
+
+
+            clickableSprite.x = 50;
+            clickableSprite.y = 50;
+            sp.x = 100; // <=> sp.x(100)
+            console.log(sp.x);
+            sp.y = 100;
+        }
+
+        function spriteClick() {
+            sp.x = Math.random() * 1000;
+            sp.y = Math.random() * 1000;
+        }
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
